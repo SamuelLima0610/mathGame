@@ -1,0 +1,118 @@
+import 'package:flutter/material.dart';
+import 'package:jogo_math/pages/config_game.dart';
+import 'package:jogo_math/pages/config_page_view.dart';
+
+class Home extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width - 80;
+    return Container(
+      color: Colors.white,//Color(0xFF272837),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Column(
+              children: [
+                Text(
+                  "Matemática(Feira Livre)",
+                  style: TextStyle(
+                      color: Colors.lightGreen,
+                      decoration: TextDecoration.none,
+                      fontSize: 40.0
+                  ),
+                )/*,
+                Text(
+                  "Lenda",
+                  style: TextStyle(
+                    decoration: TextDecoration.none,
+                    color: Color(0xFFFF8306),
+                  ),
+                )*/
+              ],
+            ),
+            Wrap(
+              runSpacing: 16,
+              children: [
+                modeButton("Jogar", "Venha comprar produtos!!", Icons.gamepad,
+                    Colors.lightGreen, width,(){
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => ConfigGame()
+                          )
+                      );
+                    }),
+                modeButton("Configurações", "Venha tematizar o seu jogo", Icons.build,
+                    Colors.lightGreen, width,(){
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => ConfigPageView()
+                          )
+                      );
+                    })
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  GestureDetector modeButton(
+      String title,
+      String subtitle, IconData icon,
+      Color color, double width, Function onTap){
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: width,
+        decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.all(Radius.circular(16))
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 22.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    textAlign:  TextAlign.left,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                        fontSize: 18.0
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 6.0),
+                    child: Text(
+                      subtitle,
+                      textAlign:  TextAlign.left,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                          fontSize: 12.0
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+                child: Icon(icon,size: 30, color: Colors.white,)
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+}
