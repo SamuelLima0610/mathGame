@@ -22,7 +22,7 @@ class ConfigPageView extends StatelessWidget {
             backgroundColor: green,
           ),
           body: ScopedModel(
-              model: DataModel('https://rest-api-trimemoria.herokuapp.com/config/themes'),
+              model: DataModel('https://rest-api-trimemoria.herokuapp.com/config/money'),
               child: CoinRFID()
           ),
         ),

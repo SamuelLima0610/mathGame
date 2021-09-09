@@ -72,6 +72,8 @@ class DataModel extends Model {
     else{
       if(information != null){
         data['id'] = information['data']['id'];
+        print(data);
+        print(information['_links'][1]['href']);
         return http.put(
           information['_links'][1]['href'],
           headers: <String, String>{

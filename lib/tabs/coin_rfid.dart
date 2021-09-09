@@ -98,7 +98,8 @@ class _CoinRFIDState extends State<CoinRFID> {
                                       Map<String,dynamic> data ={
                                         "name": _nameController.text,
                                         "value": _valueController.text,
-                                        "tag": _tagController.text
+                                        "tag": _tagController.text,
+
                                       };
                                       String answer = await model.insert(data: data);
                                       final snackBar = SnackBar(
@@ -167,14 +168,13 @@ class _CoinRFIDState extends State<CoinRFID> {
                             child: CircularProgressIndicator(),
                           );
                         else
-                          return Container();
-                            /*SafeArea(
+                          return SafeArea(
                               child: makeTable(
                                   snapshot.data.length,
                                   snapshot.data,
                                   model
                               )
-                          );*/
+                          );
                       }
                   )
                 ],
@@ -195,7 +195,7 @@ class _CoinRFIDState extends State<CoinRFID> {
           });
         });
     return PaginatedDataTable(
-        header: Text('Temas'),
+        header: Text('Cartões do jogo'),
         columns: const <DataColumn>[
           DataColumn(
               label: Text("Id",style: TextStyle(fontStyle: FontStyle.italic),)
