@@ -99,7 +99,6 @@ class _CoinRFIDState extends State<CoinRFID> {
                                         "name": _nameController.text,
                                         "value": _valueController.text,
                                         "tag": _tagController.text,
-
                                       };
                                       String answer = await model.insert(data: data);
                                       final snackBar = SnackBar(

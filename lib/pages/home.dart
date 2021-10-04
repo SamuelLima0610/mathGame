@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  "Matemática(Feira Livre)",
+                  "Frutas",
                   style: TextStyle(
                       color: Colors.lightGreen,
                       decoration: TextDecoration.none,
@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
             Wrap(
               runSpacing: 16,
               children: [
-                modeButton("Jogar", "Venha comprar produtos!!", Icons.gamepad,
+                modeButton("Jogar", "Venha contar frutas!!", Icons.store,
                     Colors.lightGreen, width,(){
                       Navigator.of(context).push(
                           MaterialPageRoute(
