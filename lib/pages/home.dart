@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  "Frutas",
+                  "FrutasFID",
                   style: TextStyle(
                       color: Colors.lightGreen,
                       decoration: TextDecoration.none,

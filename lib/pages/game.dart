@@ -37,13 +37,14 @@ class _GameState extends State<Game> {
   List<dynamic> cedulas;
   IO.Socket socket;
   List<int> answered = [];
-  List numbers = [1,2,3,4,5];
+  List numbers = [1, 2, 3, 4, 5];
   int numberOne;
   int numberTwo;
   int qntQuestion;
   String imageOne;
   String imageTwo;
   int count = 0;
+  String operation;
 
   StreamSocket streamSocket = StreamSocket();
 
@@ -51,7 +52,7 @@ class _GameState extends State<Game> {
 
   @override
   void initState() {
-    if(nivel > 1){
+    if(nivel == 2 || nivel == 4 || nivel == 6 || nivel == 8){
       qntQuestion = 20;
       numbers.addAll([6, 7, 8, 9, 10]);
     }else{
@@ -65,17 +66,19 @@ class _GameState extends State<Game> {
 
   @override
   void dispose() {
+    numbers = [1, 2, 3, 4, 5];
     streamSocket.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    checkOperation();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text(
-            "Frutas",
+            "FrutasFID",
             style: TextStyle(
                 color: Colors.white,
                 decoration: TextDecoration.none,
@@ -85,7 +88,7 @@ class _GameState extends State<Game> {
         centerTitle: true,
       ),
       body: SafeArea(
-          child: ListView(
+          child: nivel > 2 ? ListView(
             children: [
               SizedBox(
                 height: 80.0,
@@ -116,7 +119,7 @@ class _GameState extends State<Game> {
                     ],
                   ),
                   Text(
-                    nivel <= 2 ?  "+" : 'x',
+                    operation,
                     style: TextStyle(
                         color: Colors.lightGreen,
                         decoration: TextDecoration.none,
@@ -148,6 +151,106 @@ class _GameState extends State<Game> {
               SizedBox(
                 height: 20.0,
               ),
+            ],
+          ): ListView(
+            children: [
+              SizedBox(
+                height: 40.0,
+              ),
+              numberOne <= 5 ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: List.generate(numberOne, (index) {
+                    return Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Image(
+                          image: AssetImage(imageOne),
+                          height: 70,
+                          width: 70,
+                        ),
+                    );
+                  }).toList()
+              ): Center(
+                child: Column(
+                  children: [
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: List.generate(5, (index) {
+                          return Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Image(
+                              image: AssetImage(imageOne),
+                              height: 70,
+                              width: 70,
+                            ),
+                          );
+                        }).toList()
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: List.generate(numberOne - 5, (index) {
+                          return Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Image(
+                              image: AssetImage(imageOne),
+                              height: 70,
+                              width: 70,
+                            ),
+                          );
+                        }).toList()
+                    )
+                  ],
+                ),
+              ),
+              numberTwo <= 5 ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: List.generate(numberTwo, (index) {
+                    return Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Image(
+                        image: AssetImage(imageTwo),
+                        height: 70,
+                        width: 70,
+                      ),
+                    );
+                  }).toList()
+              ): Center(
+                child: Column(
+                  children: [
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: List.generate(5, (index) {
+                          return Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Image(
+                              image: AssetImage(imageTwo),
+                              height: 70,
+                              width: 70,
+                            ),
+                          );
+                        }).toList()
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: List.generate(numberTwo - 5, (index) {
+                          return Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Image(
+                              image: AssetImage(imageTwo),
+                              height: 70,
+                              width: 70,
+                            ),
+                          );
+                        }).toList()
+                    )
+                  ],
+                ),
+              )
             ],
           )
       ),
@@ -185,13 +288,25 @@ class _GameState extends State<Game> {
     socket.onDisconnect((_) => print('disconnect'));
   }
 
+  void checkOperation(){
+    if(nivel == 3 || nivel == 4) operation = '+';
+    else if(nivel == 5 || nivel == 6) operation = '-';
+    else if(nivel == 7 || nivel == 8) operation = 'x';
+  }
+
   void _checkAnswer(){
     bool isRight = false;
     int correctValue;
-    if(nivel <= 2 )
+    print("c:$count");
+    print("n:$nivel");
+    if(nivel == 1 || nivel == 2)
       correctValue = numberOne + numberTwo;
-    else
-      correctValue = numberOne * numberTwo;
+    /*if(nivel == 3 || nivel == 4)
+      correctValue = numberOne + numberTwo;
+    else if(nivel == 5 || nivel == 6)
+      correctValue = numberOne - numberTwo;
+    else if(nivel == 7 || nivel == 8)*/
+    print("cv:$correctValue");
     if(correctValue == count){
       isRight = true;
     }
@@ -248,7 +363,7 @@ class _GameState extends State<Game> {
     return path;
   }
 
-  bool _takeNumbers(){
+  void _takeNumbers(){
     int indexOne, indexTwo, auxOne, auxTwo, codeOne,codeTwo;
     int calculate = 10;
     while(true){
@@ -260,7 +375,7 @@ class _GameState extends State<Game> {
       codeOne = auxOne * 10 +  auxTwo;
       codeTwo = auxTwo * 10 +  auxOne;
       if(calculate == 0)  break;
-      else if(answered.length == qntQuestion){
+      else if(answered.length == qntQuestion * 2){
         showDialog(
             context: context,
             builder: (context){
@@ -321,7 +436,15 @@ class _GameState extends State<Game> {
       else{
         numberOne = auxOne;
         numberTwo = auxTwo;
-        answered.add(numberOne * 10 + numberTwo);
+        if(nivel == 5 || nivel == 6){
+          if(numberOne < numberTwo){
+            int aux = numberOne;
+            numberOne = numberTwo;
+            numberTwo = aux;
+          }
+        }
+        answered.add(codeOne);
+        answered.add(codeTwo);
         break;
       }
     }

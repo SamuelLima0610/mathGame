@@ -42,6 +42,7 @@ class _TcpDeviceState extends State<TcpDevice> {
                 height: 20.0,
               ),
               TextFormField(
+                obscuringCharacter: '*',
                 controller: _passwordController,
                 decoration: InputDecoration(
                     labelText: 'Senha',
