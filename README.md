@@ -1,16 +1,10 @@
-# jogo_math
+# Jogo Trimemória
 
-A new Flutter application.
+Projeto desenvolvido para a matéria de Trabalho de conclusão de curso. O jogo FrutasFid consiste em um jogo matemático. Neste jogo, a criança tem que contar quantas frutas estão no display e fornecer a resposta. Neste jogo, a resposta é fornecida por cartões RFID que representam um determinado número.
 
-## Getting Started
+## ✔️ Técnicas e tecnologias utilizadas
 
-This project is a starting point for a Flutter application.
+- ``Flutter``
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📁 Associado
+ Este projeto se utiliza do projeto da API [aqui](https://github.com/SamuelLima0610/API-REST-Jogos-Realidade-Mixada), para o recebimento das jogadas detectadas pelo dispositivo físico e o gerenciamento das configurações. 
